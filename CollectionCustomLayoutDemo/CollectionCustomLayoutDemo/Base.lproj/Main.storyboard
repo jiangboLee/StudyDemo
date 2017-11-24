@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Zqo-xa-CDc">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Collection View Controller-->
+        <scene sceneID="0Ia-d0-JjT">
+            <objects>
+                <collectionViewController id="Zqo-xa-CDc" customClass="LEECollectionViewController" customModule="CollectionCustomLayoutDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="0U1-vP-v7D">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <collectionViewLayout key="collectionViewLayout" id="VXw-6y-Mj9" customClass="CustomLayout" customModule="CollectionCustomLayoutDemo" customModuleProvider="target"/>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="ghp-Kq-6XS" customClass="PlayerCell" customModule="CollectionCustomLayoutDemo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="snM-xP-lmr">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        </imageView>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="snM-xP-lmr" firstAttribute="top" secondItem="ghp-Kq-6XS" secondAttribute="top" id="38o-Qu-d7H"/>
+                                    <constraint firstAttribute="trailing" secondItem="snM-xP-lmr" secondAttribute="trailing" id="BUY-X6-GF1"/>
+                                    <constraint firstAttribute="bottom" secondItem="snM-xP-lmr" secondAttribute="bottom" id="Dtt-lM-IFx"/>
+                                    <constraint firstItem="snM-xP-lmr" firstAttribute="leading" secondItem="ghp-Kq-6XS" secondAttribute="leading" id="tV3-TZ-1VC"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="playerImage" destination="snM-xP-lmr" id="iXR-UO-yo3"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="Zqo-xa-CDc" id="ht2-3P-mGi"/>
+                            <outlet property="delegate" destination="Zqo-xa-CDc" id="d8I-Yh-6bh"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hfG-It-Vbh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="172" y="106"/>
+        </scene>
+    </scenes>
+</document>
