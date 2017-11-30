@@ -84,7 +84,9 @@
                             </subviews>
                             <constraints>
                                 <constraint firstItem="b2j-kC-ImK" firstAttribute="leading" secondItem="kUu-lz-PSU" secondAttribute="leadingMargin" constant="8" id="3H5-vG-iJ9"/>
+                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="bCN-Lu-wgk" secondAttribute="trailing" constant="20" symbolic="YES" id="Pg6-qv-9VC"/>
                                 <constraint firstItem="bCN-Lu-wgk" firstAttribute="leading" secondItem="b2j-kC-ImK" secondAttribute="leading" id="T1Z-b1-Rgu"/>
+                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="b2j-kC-ImK" secondAttribute="trailing" constant="20" symbolic="YES" id="mwg-XZ-uu9"/>
                                 <constraint firstItem="bCN-Lu-wgk" firstAttribute="top" secondItem="b2j-kC-ImK" secondAttribute="bottom" constant="8" id="uld-bP-V1A"/>
                                 <constraint firstItem="b2j-kC-ImK" firstAttribute="top" secondItem="kUu-lz-PSU" secondAttribute="topMargin" constant="2" id="zWh-dW-1fg"/>
                             </constraints>
@@ -111,14 +113,14 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="cdE-fR-FGB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <imageView key="tableHeaderView" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img" id="gfQ-xf-Qk7">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="290"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableId" id="2bA-uN-e2V">
-                                <rect key="frame" x="0.0" y="318" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="428" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2bA-uN-e2V" id="7Le-kz-7oW">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>

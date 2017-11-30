@@ -13,7 +13,7 @@ class BigAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     var cellRect: CGRect?
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 10
+        return 1
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -25,14 +25,23 @@ class BigAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         let fromView = transitionContext.view(forKey: .from)
         let toView = transitionContext.view(forKey: .to)
         
-        toView?.frame = toViewController.cellRect!
+        toView?.frame = CGRect(x: (toViewController.cellRect?.origin.x)! + 10, y: (toViewController.cellRect?.origin.y)!, width: (toViewController.cellRect?.width)! - 20, height: (toViewController.cellRect?.height)!)
+        print(toView?.frame)
         containerView.addSubview(toView!)
         
         let transitionDuration = self.transitionDuration(using: transitionContext)
-        UIView.animate(withDuration: transitionDuration, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.6, options: .curveEaseInOut, animations: {
+        
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: {
+            toView?.frame = CGRect(x: (toViewController.cellRect?.origin.x)! + 10, y: 10, width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.height - 20)
+        }) { (_) in
+            
+        }
+        
+        UIView.animate(withDuration: transitionDuration - 0.15, delay: 0.15, usingSpringWithDamping: 20, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             
             toView?.frame = UIScreen.main.bounds
         }) { (_) in
+            
             let wasCancelled = transitionContext.transitionWasCancelled
             transitionContext.completeTransition(!wasCancelled)
         }

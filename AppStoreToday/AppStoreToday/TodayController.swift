@@ -19,11 +19,20 @@ class TodayController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         detailVC.transitioningDelegate = self
-
+        
+        var frame = collectionView?.frame
+        if ISIPHONE_X() {
+            
+            frame?.origin.y = 44
+        } else {
+            
+            frame?.origin.y = 20
+        }
+        collectionView?.frame = frame!
         
     }
+    
     // MARK: UICollectionViewDataSource
-
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 3
@@ -39,7 +48,9 @@ class TodayController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CollectionViewCell
         cell.touchBlock = {[unowned self] in
             
-            self.detailVC.cellRect = cell.frame
+            self.detailVC.cellRect = collectionView.convert(cell.frame, to: nil)
+            print(self.detailVC.cellRect)
+            self.hideTabbar()
             self.present(self.detailVC, animated: true, completion: nil)
         }
         return cell
@@ -53,6 +64,29 @@ class TodayController: UICollectionViewController {
             return header
         }
         return UICollectionReusableView()
+    }
+    
+    func hideTabbar() {
+        UIView.animate(withDuration: 0.2) {
+            var tabFrame = self.tabBarController!.tabBar.frame
+            print(tabFrame)
+            tabFrame.origin.y = tabFrame.minY + tabFrame.height
+            self.tabBarController!.tabBar.frame = tabFrame
+            print(self.tabBarController!.tabBar.frame)
+        }
+        print(self.tabBarController!.tabBar.frame)
+    }
+    func showTabbar() {
+        UIView.animate(withDuration: 0.4, delay: 2, options: .curveEaseInOut, animations: {
+            var tabFrame = self.tabBarController!.tabBar.frame
+            print(tabFrame)
+            tabFrame.origin.y = tabFrame.minY - tabFrame.height
+            self.tabBarController!.tabBar.frame = tabFrame
+            print(self.tabBarController!.tabBar.frame)
+        }) { (_) in
+            
+        }
+        print(self.tabBarController!.tabBar.frame)
     }
     
     
@@ -82,6 +116,7 @@ extension TodayController: UIViewControllerTransitioningDelegate {
         return BigAnimator()
     }
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        showTabbar()
         return SmallAnimator()
     }
 }

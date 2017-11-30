@@ -10,12 +10,12 @@ import UIKit
 
 class SmallAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 10
+        return 0.5
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         
-        let fromViewController = transitionContext.viewController(forKey: .from)
+        let fromViewController = transitionContext.viewController(forKey: .from) as! DetailViewController
         let toViewController = transitionContext.viewController(forKey: .to)
         let containerView = transitionContext.containerView
         
@@ -23,13 +23,14 @@ class SmallAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         let toView = transitionContext.view(forKey: .to)
         
         
-        fromView?.removeFromSuperview()
         
+        containerView.insertSubview(toView!, belowSubview: fromView!)
         let transitionDuration = self.transitionDuration(using: transitionContext)
-        UIView.animate(withDuration: transitionDuration, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.6, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: transitionDuration, delay: 0, options: .curveEaseInOut, animations: {
             
-            
+            fromView?.frame = CGRect(x: (fromViewController.cellRect?.origin.x)! + 10, y: (fromViewController.cellRect?.origin.y)! + 10, width: (fromViewController.cellRect?.width)! - 20, height: (fromViewController.cellRect?.height)! - 20)
         }) { (_) in
+            fromView?.removeFromSuperview()
             let wasCancelled = transitionContext.transitionWasCancelled
             transitionContext.completeTransition(!wasCancelled)
         }

@@ -44,7 +44,10 @@ class CollectionViewCell: UICollectionViewCell {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
+        UIView.animate(withDuration: 0.2) {
+            
+            self.img.transform = CGAffineTransform.identity
+        }
         touchBlock?()
     }
     
