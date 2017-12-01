@@ -13,13 +13,13 @@ private let headerIdentifier = "header"
 
 class TodayController: UICollectionViewController {
 
-    let detailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "detailV") as! DetailViewController
+    
     var cellRect: CGRect?
+    var isHiddenStatus: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        detailVC.transitioningDelegate = self
-        
+    
         var frame = collectionView?.frame
         if ISIPHONE_X() {
             
@@ -47,11 +47,19 @@ class TodayController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CollectionViewCell
         cell.touchBlock = {[unowned self] in
-            
-            self.detailVC.cellRect = collectionView.convert(cell.frame, to: nil)
-            print(self.detailVC.cellRect)
+            let detailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "detailV") as! DetailViewController
+            detailVC.transitioningDelegate = self
+            detailVC.cellRect = collectionView.convert(cell.frame, to: nil)
+            detailVC.backGroundImage = self.coreBlurImage()
+            UIView.animate(withDuration: 0.2) {
+                
+                cell.img.transform = CGAffineTransform.identity
+                cell.img.alpha = 0
+            }
+            self.isHiddenStatus = true
             self.hideTabbar()
-            self.present(self.detailVC, animated: true, completion: nil)
+            self.hideStatus()
+            self.present(detailVC, animated: true, completion: nil)
         }
         return cell
     }
@@ -76,8 +84,29 @@ class TodayController: UICollectionViewController {
         }
         print(self.tabBarController!.tabBar.frame)
     }
+    
+    func hideStatus() {
+        UIView.animate(withDuration: 0.3) {
+            self.setNeedsStatusBarAppearanceUpdate()
+        }
+    }
+    
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return .slide
+    }
+    override var prefersStatusBarHidden: Bool {
+        return isHiddenStatus
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        isHiddenStatus = false
+        hideStatus()
+    }
+    
+/** 2017-12-01 12:57:12
     func showTabbar() {
-        UIView.animate(withDuration: 0.4, delay: 2, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.3, delay: 0.1, options: .curveEaseInOut, animations: {
             var tabFrame = self.tabBarController!.tabBar.frame
             print(tabFrame)
             tabFrame.origin.y = tabFrame.minY - tabFrame.height
@@ -88,8 +117,15 @@ class TodayController: UICollectionViewController {
         }
         print(self.tabBarController!.tabBar.frame)
     }
+*/
     
-    
+    func coreBlurImage() -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(UIScreen.main.bounds.size, false, 0)
+        collectionView?.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image!
+    }
 }
 
 extension TodayController: UICollectionViewDelegateFlowLayout {
@@ -116,7 +152,7 @@ extension TodayController: UIViewControllerTransitioningDelegate {
         return BigAnimator()
     }
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        showTabbar()
+        
         return SmallAnimator()
     }
 }

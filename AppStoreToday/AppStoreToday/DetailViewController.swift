@@ -8,21 +8,53 @@
 
 import UIKit
 
-class DetailViewController: UITableViewController {
+class DetailViewController: UIViewController {
     
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    var isDraging: Bool = false
+    var isScale: Bool = false
+    
+    var backGroundImage: UIImage?
     var cellRect: CGRect?
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    var closeButton: UIButton = {
         let closeButton = UIButton()
         closeButton.setImage(#imageLiteral(resourceName: "close"), for: .normal)
         closeButton.frame = CGRect(x: UIScreen.main.bounds.width - 50, y: 40, width: 20, height: 20)
         closeButton.addTarget(self, action: #selector(closeClick), for: .touchUpInside)
+        closeButton.alpha = 1
+        return closeButton
+    }()
+    
+    var panRecongize: UIPanGestureRecognizer?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+       
+        tableView.contentInsetAdjustmentBehavior = .never
+        
         view.addSubview(closeButton)
         
+        let imageV = UIImageView(image: backGroundImage)
+        imageV.frame = self.view.bounds
+        let blurEffect = UIBlurEffect(style: .light)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.autoresizingMask = [.flexibleWidth , .flexibleHeight]
+        blurView.frame = imageV.frame
+        imageV.addSubview(blurView)
+        
+        self.view.insertSubview(imageV, at: 0)
+        
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(panMove(recognize:)))
+        panRecongize = pan
+        pan.delegate = self
+        tableView.addGestureRecognizer(pan)
     }
     
     @objc func closeClick() {
+        self.closeButton.alpha = 0
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -30,65 +62,110 @@ class DetailViewController: UITableViewController {
         return true
     }
     
+    
+}
+
+extension DetailViewController: UITableViewDelegate,UITableViewDataSource {
     // MARK: - Table view data source
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 30
     }
-
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tableId", for: indexPath)
-
         
-
+        cell.textLabel?.text = "今天天气真好啊，今天天气真好啊，今天天气真好啊，今天天气真好啊，今天天气真好啊"
+        
         return cell
     }
- 
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        let y = scrollView.contentOffset.y
+        print("====\(y)")
+        let scale = y / 800
+        
+        if y <= 0 {
+            
+            scrollView.isScrollEnabled = true
+            let transfrom = CGAffineTransform.init(scaleX: 1 + scale , y: 1 + scale)
+            isScale = true
+            tableView.transform = transfrom.translatedBy(x: 0, y: y/2)
+//            tableView.addGestureRecognizer(panRecongize!)
+//            panMove(recognize: panRecongize!)
+            if y <= -90 {
+                closeClick()
+            }
+            
+        } else {
+            isScale = false
+            scrollView.isScrollEnabled = true
+            tableView.removeGestureRecognizer(panRecongize!)
+        }
+        if isDraging && y >= 0 && isScale {
+            scrollView.isScrollEnabled = false
+        }
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        tableView.transform = CGAffineTransform.identity
+        tableView.bounces = false
+        isDraging = false
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        tableView.bounces = true
+        isDraging = true
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        tableView.bounces = true
     }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    @objc func panMove(recognize: UIPanGestureRecognizer) {
+        
+        let translatedPoint = recognize.translation(in: tableView)
+        let y = translatedPoint.y
+        print(y)
+        let scale = y / 800
+        if y < -2  {
+            tableView.transform = CGAffineTransform.identity
+            tableView.isScrollEnabled = true
+        } else {
+            tableView.transform = CGAffineTransform.init(scaleX: 1 - scale , y: 1 - scale)
+            tableView.isScrollEnabled = false
+            isScale = true
+            
+           
+            switch recognize.state {
+            case .cancelled:
+                tableView.transform = CGAffineTransform.identity
+                tableView.isScrollEnabled = true
+            case .ended:
+                tableView.transform = CGAffineTransform.identity
+                tableView.isScrollEnabled = true
+            case .failed:
+                tableView.transform = CGAffineTransform.identity
+                tableView.isScrollEnabled = true
+            default:
+                break
+            }
+            
+            
+            if y >= 175 {
+                tableView.removeGestureRecognizer(recognize)
+                tableView.transform = CGAffineTransform.identity
+                view.layoutIfNeeded()
+                closeClick()
+            }
+        }
     }
-    */
-
 }
+
+extension DetailViewController: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+}
+
+
+

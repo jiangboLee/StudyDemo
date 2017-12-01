@@ -25,7 +25,7 @@ class BigAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         let fromView = transitionContext.view(forKey: .from)
         let toView = transitionContext.view(forKey: .to)
         
-        toView?.frame = CGRect(x: (toViewController.cellRect?.origin.x)! + 10, y: (toViewController.cellRect?.origin.y)!, width: (toViewController.cellRect?.width)! - 20, height: (toViewController.cellRect?.height)!)
+        toView?.frame = CGRect(x: (toViewController.cellRect?.origin.x)! + 10, y: (toViewController.cellRect?.origin.y)! + 10, width: (toViewController.cellRect?.width)! - 20, height: (toViewController.cellRect?.height)! - 20)
         print(toView?.frame)
         containerView.addSubview(toView!)
         
@@ -37,7 +37,7 @@ class BigAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             
         }
         
-        UIView.animate(withDuration: transitionDuration - 0.15, delay: 0.15, usingSpringWithDamping: 20, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: transitionDuration - 0.15, delay: 0.15, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
             
             toView?.frame = UIScreen.main.bounds
         }) { (_) in

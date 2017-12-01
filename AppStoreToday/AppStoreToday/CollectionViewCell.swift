@@ -20,6 +20,12 @@ class CollectionViewCell: UICollectionViewCell {
         
         img.layer.cornerRadius = 20
         img.layer.masksToBounds = true
+        NotificationCenter.default.addObserver(self, selector: #selector(imgDisplay), name: NSNotification.Name(rawValue: "dissmissOver"), object: nil)
+    }
+    
+    @objc func imgDisplay() {
+        
+        img.alpha = 1
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -44,10 +50,7 @@ class CollectionViewCell: UICollectionViewCell {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        UIView.animate(withDuration: 0.2) {
-            
-            self.img.transform = CGAffineTransform.identity
-        }
+        
         touchBlock?()
     }
     
