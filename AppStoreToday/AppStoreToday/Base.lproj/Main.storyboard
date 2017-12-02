@@ -152,6 +152,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="headerImage" destination="mKt-TA-K0R" id="hcb-Dr-nyn"/>
                         <outlet property="tableView" destination="Vqw-7L-5Ax" id="lEd-nx-FlQ"/>
                     </connections>
                 </viewController>

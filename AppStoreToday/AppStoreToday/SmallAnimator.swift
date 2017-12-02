@@ -34,25 +34,29 @@ class SmallAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             H = UIScreen.main.bounds.height - 49
         }
         if (fromViewController.cellRect?.maxY)! > H {
-         
+            print("大")
             containerView.insertSubview(toView!, at: 0)
             toView?.addSubview(fromView!)
         } else {
             
+            print("小")
             containerView.insertSubview(toView!, belowSubview: fromView!)
         }
-        let transitionDuration = self.transitionDuration(using: transitionContext)
         
-        let tabBar = todayVC.tabBarController!.tabBar
+        let tabBar = toViewController.tabBar
         containerView.addSubview(tabBar)
+        tabBar.frame = CGRect(x: 0, y: UIScreen.main.bounds.height, width: tabBar.frame.width, height: tabBar.frame.height)
         UIView.animate(withDuration: 0.3, delay: 0.1, options: .curveEaseInOut, animations: {
             var tabFrame = tabBar.frame
+            print("last  \(tabFrame)")
             tabFrame.origin.y = tabFrame.minY - tabFrame.height
             tabBar.frame = tabFrame
+            print("last  \(tabBar.frame)")
         }) { (_) in
             
         }
         
+        let transitionDuration = self.transitionDuration(using: transitionContext)
         UIView.animate(withDuration: transitionDuration, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.8, options: .curveEaseInOut, animations: {
             fromView?.frame = CGRect(x: (fromViewController.cellRect?.origin.x)! + 10, y: (fromViewController.cellRect?.origin.y)! + 10, width: (fromViewController.cellRect?.width)! - 20, height: (fromViewController.cellRect?.height)! - 20)
             print(fromView?.frame)

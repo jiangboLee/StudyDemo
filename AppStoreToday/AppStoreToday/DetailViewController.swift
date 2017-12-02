@@ -11,6 +11,7 @@ import UIKit
 class DetailViewController: UIViewController {
     
     
+    @IBOutlet weak var headerImage: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     
     var isDraging: Bool = false
@@ -21,7 +22,7 @@ class DetailViewController: UIViewController {
     var closeButton: UIButton = {
         let closeButton = UIButton()
         closeButton.setImage(#imageLiteral(resourceName: "close"), for: .normal)
-        closeButton.frame = CGRect(x: UIScreen.main.bounds.width - 50, y: 40, width: 20, height: 20)
+        closeButton.frame = CGRect(x: UIScreen.main.bounds.width - 50, y: 20, width: 40, height: 40)
         closeButton.addTarget(self, action: #selector(closeClick), for: .touchUpInside)
         closeButton.alpha = 1
         return closeButton
@@ -33,7 +34,11 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         
        
-        tableView.contentInsetAdjustmentBehavior = .never
+        if #available(iOS 11.0, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        } else {
+            // Fallback on earlier versions
+        }
         
         view.addSubview(closeButton)
         
@@ -46,15 +51,11 @@ class DetailViewController: UIViewController {
         imageV.addSubview(blurView)
         
         self.view.insertSubview(imageV, at: 0)
-        
-        let pan = UIPanGestureRecognizer(target: self, action: #selector(panMove(recognize:)))
-        panRecongize = pan
-        pan.delegate = self
-        tableView.addGestureRecognizer(pan)
     }
     
     @objc func closeClick() {
-        self.closeButton.alpha = 0
+        self.closeButton.removeFromSuperview()
+        tableView.setContentOffset(CGPoint.init(x: 0, y: 0), animated: false)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -68,7 +69,7 @@ class DetailViewController: UIViewController {
 extension DetailViewController: UITableViewDelegate,UITableViewDataSource {
     // MARK: - Table view data source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+        return 50
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -82,17 +83,30 @@ extension DetailViewController: UITableViewDelegate,UITableViewDataSource {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         let y = scrollView.contentOffset.y
-        print("====\(y)")
         let scale = y / 800
         
+        if isDraging && y >= 0.1 && isScale {
+            tableView.transform = CGAffineTransform.identity
+            self.tableView.setContentOffset(CGPoint.init(x: 0, y: 0), animated: false)
+            restoreCornerRadius()
+            return
+        }
         if y <= 0 {
             
             scrollView.isScrollEnabled = true
-            let transfrom = CGAffineTransform.init(scaleX: 1 + scale , y: 1 + scale)
+            let transfrom = CGAffineTransform.init(scaleX: 1 + scale * 2 , y: 1 + scale)
             isScale = true
             tableView.transform = transfrom.translatedBy(x: 0, y: y/2)
-//            tableView.addGestureRecognizer(panRecongize!)
-//            panMove(recognize: panRecongize!)
+            
+            setCloseButtonChange(sclan: y)
+            
+            if y == 0 {
+                
+                restoreCornerRadius()
+            } else {
+                
+                setCornerRadius()
+            }
             if y <= -90 {
                 closeClick()
             }
@@ -100,17 +114,17 @@ extension DetailViewController: UITableViewDelegate,UITableViewDataSource {
         } else {
             isScale = false
             scrollView.isScrollEnabled = true
-            tableView.removeGestureRecognizer(panRecongize!)
+            
         }
-        if isDraging && y >= 0 && isScale {
-            scrollView.isScrollEnabled = false
-        }
+        
+        
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         tableView.transform = CGAffineTransform.identity
         tableView.bounces = false
         isDraging = false
+        isScale = false
     }
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         tableView.bounces = true
@@ -118,52 +132,35 @@ extension DetailViewController: UITableViewDelegate,UITableViewDataSource {
     }
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         tableView.bounces = true
+        isScale = false
     }
     
-    @objc func panMove(recognize: UIPanGestureRecognizer) {
+    //MARK: 缩小时到圆角
+    func setCornerRadius() {
+        tableView.layer.cornerRadius = 10
+        tableView.layer.masksToBounds = true
         
-        let translatedPoint = recognize.translation(in: tableView)
-        let y = translatedPoint.y
-        print(y)
-        let scale = y / 800
-        if y < -2  {
-            tableView.transform = CGAffineTransform.identity
-            tableView.isScrollEnabled = true
-        } else {
-            tableView.transform = CGAffineTransform.init(scaleX: 1 - scale , y: 1 - scale)
-            tableView.isScrollEnabled = false
-            isScale = true
-            
-           
-            switch recognize.state {
-            case .cancelled:
-                tableView.transform = CGAffineTransform.identity
-                tableView.isScrollEnabled = true
-            case .ended:
-                tableView.transform = CGAffineTransform.identity
-                tableView.isScrollEnabled = true
-            case .failed:
-                tableView.transform = CGAffineTransform.identity
-                tableView.isScrollEnabled = true
-            default:
-                break
-            }
-            
-            
-            if y >= 175 {
-                tableView.removeGestureRecognizer(recognize)
-                tableView.transform = CGAffineTransform.identity
-                view.layoutIfNeeded()
-                closeClick()
-            }
-        }
+        let maskPath = UIBezierPath(roundedRect: headerImage.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 10, height: 10))
+        let maskLayer = CAShapeLayer()
+        maskLayer.frame = headerImage.bounds
+        maskLayer.path = maskPath.cgPath
+        headerImage.layer.mask = maskLayer
     }
-}
-
-extension DetailViewController: UIGestureRecognizerDelegate {
+    //MARK: 圆角还原
+    func restoreCornerRadius() {
+        tableView.layer.masksToBounds = false
+        let maskPath = UIBezierPath(roundedRect: headerImage.bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 0, height: 0))
+        let maskLayer = CAShapeLayer()
+        maskLayer.frame = headerImage.bounds
+        maskLayer.path = maskPath.cgPath
+        headerImage.layer.mask = maskLayer
+    }
     
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
+    func setCloseButtonChange(sclan: CGFloat) {
+        UIView.animate(withDuration: 0.2) {
+            self.closeButton.frame = CGRect(x: (UIScreen.main.bounds.width - 50 + UIScreen.main.bounds.width * (sclan / 800)) , y:(20 - sclan), width: 40, height: 40)
+            self.closeButton.alpha = 1 + sclan / 90
+        }
     }
 }
 
