@@ -57,8 +57,7 @@ class TodayController: UICollectionViewController {
                 cell.img.alpha = 0
             }
             self.isHiddenStatus = true
-            self.hideTabbar()
-            self.hideStatus()
+            
             self.present(detailVC, animated: true, completion: nil)
         }
         return cell
@@ -75,12 +74,20 @@ class TodayController: UICollectionViewController {
     }
     
     func hideTabbar() {
-        UIView.animate(withDuration: 0.2) {
+        UIView.animate(withDuration: 0.4) {
             var tabFrame = self.tabBarController!.tabBar.frame
             print(tabFrame)
             tabFrame.origin.y = tabFrame.minY + tabFrame.height
             self.tabBarController!.tabBar.frame = tabFrame
             print(self.tabBarController!.tabBar.frame)
+        }
+        print(self.tabBarController!.tabBar.frame)
+    }
+    func showTabbar() {
+        UIView.animate(withDuration: 0.4) {
+            var tabFrame = self.tabBarController!.tabBar.frame
+            print(tabFrame)
+            self.tabBarController!.tabBar.frame = CGRect(x: 0, y: UIScreen.main.bounds.height - tabFrame.height, width: tabFrame.width, height: tabFrame.height)
         }
         print(self.tabBarController!.tabBar.frame)
     }
@@ -101,6 +108,12 @@ class TodayController: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         isHiddenStatus = false
+        hideStatus()
+        showTabbar()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        hideTabbar()
         hideStatus()
     }
     
