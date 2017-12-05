@@ -10,8 +10,10 @@
 #import "LEEAlertViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "LEEScanView.h"
+#import "LEEScanPhotoPermissions.h"
+#import "LEEScanNative.h"
 
-@interface LEEScanViewController ()<AVCaptureMetadataOutputObjectsDelegate>
+@interface LEEScanViewController ()<AVCaptureMetadataOutputObjectsDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property(nonatomic, strong) AVCaptureSession *session;
 @property(nonatomic, strong) AVCaptureDeviceInput *deviceInput;
@@ -35,12 +37,16 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
     self.title = @"扫一扫";
+    
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithTitle:@"相册" style:UIBarButtonItemStyleDone target:self action:@selector(openPhotoesLib)];
+    self.navigationItem.rightBarButtonItem = rightItem;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self requestCameraPemissionWithResylt:^(BOOL granted) {
+    [LEEScanPhotoPermissions requestCameraPemissionWithResult:^(BOOL granted) {
+
         if (granted) {
             [self startScan];
             [self drawScanView];
@@ -110,36 +116,10 @@
 }
 
 
-- (void)requestCameraPemissionWithResylt:(void(^)(BOOL granted))completion {
-    
-    AVAuthorizationStatus permission = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-    switch (permission) {
-        case AVAuthorizationStatusAuthorized:
-            completion(YES);
-            break;
-        case AVAuthorizationStatusDenied:
-        case AVAuthorizationStatusRestricted:
-            completion(NO);
-        case AVAuthorizationStatusNotDetermined:
-        {
-            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (granted) {
-                        completion(YES);
-                    } else {
-                        completion(NO);
-                    }
-                });
-            }];
-        }
-        default:
-            break;
-    }
-}
-
 - (void)startScan {
     dispatch_async(dispatch_get_main_queue(), ^{
         if (_session != nil) {
+            [_session startRunning];
             return;
         }
         _session = [[AVCaptureSession alloc] init];
@@ -172,11 +152,50 @@
     
     AVMetadataMachineReadableCodeObject *metadataObject = metadataObjects.firstObject;
     if ([metadataObject.type isEqualToString:AVMetadataObjectTypeQRCode]) {
-        [LEEAlertViewController showWithTitle:@"" message:metadataObject.stringValue];
+        [self getResultAndDoSomething:metadataObject.stringValue];
     }
     
 }
 
+#pragma mark : - 打开相册
+- (void)openPhotoesLib {
+    if ([LEEScanPhotoPermissions photoPermission]) {
+        [self openLocalPhoto];
+    } else {
+        [LEEAlertViewController showWithTitle:@"提示" message:@"请到设置->隐私中开启本程序相册权限"];
+    }
+}
+- (void)openLocalPhoto {
+    
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    picker.delegate = self;
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    if (image == nil) {
+        image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    }
+    [LEEScanNative recognizeImage:image success:^(NSArray *result) {
+        for (int i = 0; i < result.count; i ++) {
+            [self getResultAndDoSomething:result[i]];
+        }
+        if (result.count == 0) {
+            [LEEAlertViewController showWithTitle:@"提示" message:@"未检测到有二维码哦"];
+        }
+    }];
+    
+}
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+#pragma mark : - 开关闪光灯
 - (void)openOrCloseFlash:(UIButton *)btn {
     btn.selected = !btn.selected;
     
@@ -198,6 +217,9 @@
     [_deviceInput.device unlockForConfiguration];
 }
 
+- (void)getResultAndDoSomething:(NSString *)str {
+    [LEEAlertViewController showWithTitle:@"ok" message:str];
+}
 
 
 

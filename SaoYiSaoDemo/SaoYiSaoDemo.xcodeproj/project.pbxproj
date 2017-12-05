@@ -27,6 +27,8 @@
 		3F6ACCD81FD68F9C0091A624 /* qrcode_scan_part_net.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F6ACCCA1FD68F9C0091A624 /* qrcode_scan_part_net.png */; };
 		3F6ACCDB1FD692A90091A624 /* LEEScanLineAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F6ACCDA1FD692A90091A624 /* LEEScanLineAnimation.m */; };
 		3F6ACCDE1FD697620091A624 /* LEEScanNetAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F6ACCDD1FD697620091A624 /* LEEScanNetAnimation.m */; };
+		B73C15731FD6D8EA0086AE41 /* LEEScanPhotoPermissions.m in Sources */ = {isa = PBXBuildFile; fileRef = B73C15721FD6D8EA0086AE41 /* LEEScanPhotoPermissions.m */; };
+		B73C15761FD6E17C0086AE41 /* LEEScanNative.m in Sources */ = {isa = PBXBuildFile; fileRef = B73C15751FD6E17C0086AE41 /* LEEScanNative.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +62,10 @@
 		3F6ACCDA1FD692A90091A624 /* LEEScanLineAnimation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LEEScanLineAnimation.m; sourceTree = "<group>"; };
 		3F6ACCDC1FD697620091A624 /* LEEScanNetAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LEEScanNetAnimation.h; sourceTree = "<group>"; };
 		3F6ACCDD1FD697620091A624 /* LEEScanNetAnimation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LEEScanNetAnimation.m; sourceTree = "<group>"; };
+		B73C15711FD6D8EA0086AE41 /* LEEScanPhotoPermissions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LEEScanPhotoPermissions.h; sourceTree = "<group>"; };
+		B73C15721FD6D8EA0086AE41 /* LEEScanPhotoPermissions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LEEScanPhotoPermissions.m; sourceTree = "<group>"; };
+		B73C15741FD6E17C0086AE41 /* LEEScanNative.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LEEScanNative.h; sourceTree = "<group>"; };
+		B73C15751FD6E17C0086AE41 /* LEEScanNative.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LEEScanNative.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +107,10 @@
 				3F6ACCB41FD64E0B0091A624 /* LEEAlertViewController.m */,
 				3F6ACCB01FD64AF10091A624 /* LEEScanViewController.h */,
 				3F6ACCB11FD64AF10091A624 /* LEEScanViewController.m */,
+				B73C15711FD6D8EA0086AE41 /* LEEScanPhotoPermissions.h */,
+				B73C15721FD6D8EA0086AE41 /* LEEScanPhotoPermissions.m */,
+				B73C15741FD6E17C0086AE41 /* LEEScanNative.h */,
+				B73C15751FD6E17C0086AE41 /* LEEScanNative.m */,
 				3F6ACCB61FD673B80091A624 /* LEEScanView.h */,
 				3F6ACCB71FD673B80091A624 /* LEEScanView.m */,
 				3F6ACCB91FD6761B0091A624 /* LEEScanViewStyle.h */,
@@ -215,7 +225,9 @@
 				3F6ACCBB1FD6761B0091A624 /* LEEScanViewStyle.m in Sources */,
 				3F6ACCB21FD64AF10091A624 /* LEEScanViewController.m in Sources */,
 				3F6ACCB51FD64E0C0091A624 /* LEEAlertViewController.m in Sources */,
+				B73C15731FD6D8EA0086AE41 /* LEEScanPhotoPermissions.m in Sources */,
 				3F6ACC9F1FD646980091A624 /* ViewController.m in Sources */,
+				B73C15761FD6E17C0086AE41 /* LEEScanNative.m in Sources */,
 				3F6ACCDE1FD697620091A624 /* LEEScanNetAnimation.m in Sources */,
 				3F6ACCDB1FD692A90091A624 /* LEEScanLineAnimation.m in Sources */,
 				3F6ACCAA1FD646980091A624 /* main.m in Sources */,
@@ -357,6 +369,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 47W28PSMV7;
 				INFOPLIST_FILE = SaoYiSaoDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.lijiangbo.SaoYiSaoDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -371,6 +384,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 47W28PSMV7;
 				INFOPLIST_FILE = SaoYiSaoDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.lijiangbo.SaoYiSaoDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
