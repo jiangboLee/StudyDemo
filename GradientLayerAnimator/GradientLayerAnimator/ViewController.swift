@@ -28,6 +28,13 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
         
         gradient.mask = lable.layer
+        
+        let meImage = UIImageView(image: #imageLiteral(resourceName: "me"))
+        meImage.center.x = lable.bounds.width / 2
+        meImage.center.y = -10
+        meImage.bounds.size = CGSize(width: 200, height: 200)
+        lable.addSubview(meImage)
+        
         lable.text = ""
         punchText(text: "我完成的家家户户vjhdskfklfjk 的开始放假的空间发的空间房间可是看到你你你息怒息怒心心念念明星妈妈小非农防腐剂匹配哦哦融捷股份女女女付款覅额非把审计快来吧vajblfjkadsbfdjbznabvnabbvks")
     }
@@ -43,10 +50,45 @@ class ViewController: UIViewController {
             })
         } else {
             
+            perform(#selector(addButtonRing), with: nil, afterDelay: 0.1)
+            perform(#selector(addButtonRing), with: nil, afterDelay: 1.2)
+            perform(#selector(addButtonRing), with: nil, afterDelay: 2.4)
+            
         }
     }
     
+    @objc func addButtonRing() {
+        
+        let side: CGFloat = 60.0
+        let button = CAShapeLayer()
+        button.position = CGPoint(x: lable.bounds.width / 2.0 - side / 2.0, y: lable.bounds.height * 0.85)
+        button.strokeColor = UIColor.black.cgColor
+        button.fillColor = UIColor.clear.cgColor
+        button.path = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: side, height: side)).cgPath
+        button.lineWidth = 1.0
+        button.opacity = 0.5
+        lable.layer.addSublayer(button)
+        
+        //添加动画
+        let scale = CABasicAnimation(keyPath: "transform.scale")
+        scale.fromValue = 1.0
+        scale.toValue = 0.67
+        scale.duration = 2.0
+        scale.repeatCount = Float.infinity
+        scale.autoreverses = true
+        button.add(scale, forKey: nil)
+    }
     
 }
+
+
+
+
+
+
+
+
+
+
 
 
