@@ -7,6 +7,7 @@
 //
 
 #import "LEETapImageView.h"
+#import <Photos/Photos.h>
 
 @implementation LEETapImageView
 
@@ -24,6 +25,22 @@
 }
 
 - (void)longPressAction {
-    NSLog(@"要保存吗？？？？？？？？？？？？");
+    
+    UIImage *img = self.image;
+    [LEEAlertViewController showWithTitle:nil message:nil alertType:UIAlertControllerStyleActionSheet actionTitles:@[@"保存图片", @"取消"] handles:@[^(UIAlertAction * _Nullable action) {
+        
+        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+            
+            [PHAssetChangeRequest creationRequestForAssetFromImage:img];
+        } completionHandler:^(BOOL success, NSError * _Nullable error) {
+            if (success) {
+                NSLog(@"保存成功");
+            } else {
+                NSLog(@"%@",error);
+            }
+        }];
+    }, ^(UIAlertAction * _Nullable action) {
+        
+    }]];
 }
 @end

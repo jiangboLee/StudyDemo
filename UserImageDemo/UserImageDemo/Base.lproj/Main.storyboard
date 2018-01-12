@@ -99,7 +99,7 @@
                     <view key="view" contentMode="scaleToFill" id="vwQ-pg-na7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="我的头像" id="VLR-pc-HCr">
                         <barButtonItem key="rightBarButtonItem" systemItem="camera" id="dh8-kg-02u"/>

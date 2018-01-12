@@ -41,5 +41,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>请求相册1</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>请求相册2</string>
 </dict>
 </plist>

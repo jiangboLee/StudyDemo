@@ -7,7 +7,6 @@
 //
 
 #import "LEEScrollView.h"
-#import "UIView+LEEView.h"
 
 @interface LEEScrollView()<UIScrollViewDelegate, UIGestureRecognizerDelegate>
 
@@ -15,7 +14,7 @@
 
 
 static CGFloat scrollViewMinZoomScale = 1.0;
-static CGFloat scrollViewMaxZoomScale = 2.0;
+static CGFloat scrollViewMaxZoomScale = 3.0;
 @implementation LEEScrollView
 
 - (LEETapImageView *)imageView {
@@ -31,7 +30,7 @@ static CGFloat scrollViewMaxZoomScale = 2.0;
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor redColor];
+        self.backgroundColor = [UIColor clearColor];
         self.delegate = self;
         self.alwaysBounceVertical = YES;
         self.showsHorizontalScrollIndicator = NO;
@@ -40,6 +39,11 @@ static CGFloat scrollViewMaxZoomScale = 2.0;
         self.decelerationRate = UIScrollViewDecelerationRateFast;
         self.panGestureRecognizer.delegate = self;
         self.minimumZoomScale = scrollViewMinZoomScale;
+        if (@available(iOS 11.0, *)) {
+            self.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        } else {
+            // Fallback on earlier versions
+        }
         [self imageView];
     }
     return self;
@@ -57,7 +61,7 @@ static CGFloat scrollViewMaxZoomScale = 2.0;
 }
 - (void)resetScrollViewStatusWithImage:(UIImage *)image {
     self.zoomScale = scrollViewMinZoomScale;
-    self.imageView.frame = CGRectMake(0, 0, self.Lee_Width, self.Lee_Width);
+    self.imageView.frame = CGRectMake(0, (self.Lee_Height - self.Lee_Width) / 2, self.Lee_Width, self.Lee_Width);
 /** 2018-01-12 19:05:44
     if (image.size.height / image.size.width > self.Lee_Height / self.Lee_Width) {
         self.imageView.Lee_Height = floor(image.size.height / (image.size.width / self.Lee_Width));
@@ -72,12 +76,7 @@ static CGFloat scrollViewMaxZoomScale = 2.0;
 */
     self.contentSize = CGSizeMake(self.Lee_Width, MAX(self.imageView.Lee_Height, self.Lee_Height));
     [self setContentOffset:CGPointZero];
-    
-    if (self.imageView.Lee_Height > self.Lee_Height) {
-        self.alwaysBounceVertical = YES;
-    } else {
-        self.alwaysBounceVertical = NO;
-    }
+    self.alwaysBounceVertical = NO;
     
     if (self.imageView.contentMode != UIViewContentModeScaleToFill) {
         self.imageView.contentMode =  UIViewContentModeScaleToFill;
@@ -86,10 +85,7 @@ static CGFloat scrollViewMaxZoomScale = 2.0;
 }
 
 - (void)layoutSubviews {
-
     [super layoutSubviews];
-    // 图片在移动的时候停止居中布局
-//    if (self.imageViewIsMoving == YES) return;
 
     CGSize boundsSize = self.bounds.size;
     CGRect frameToCenter =  self.imageView.frame;
@@ -120,7 +116,7 @@ static CGFloat scrollViewMaxZoomScale = 2.0;
     if (self.zoomScale != self.minimumZoomScale) {
         [self setZoomScale:self.minimumZoomScale animated:YES];
     } else {
-        CGFloat newZoomScale = self.maximumZoomScale;
+        CGFloat newZoomScale = [UIScreen mainScreen].bounds.size.height / [UIScreen mainScreen].bounds.size.width;
         CGFloat xsize = self.Lee_Width / newZoomScale;
         CGFloat ysize = self.Lee_Height / newZoomScale;
         [self zoomToRect:CGRectMake(touchPoint.x - xsize/2, touchPoint.y - ysize/2, xsize, ysize) animated:YES];
@@ -134,8 +130,7 @@ static CGFloat scrollViewMaxZoomScale = 2.0;
 }
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
-//    if (self.model.isShowing == NO) return;
-//    self.model.scale = @(scrollView.zoomScale);
+    
     [self setNeedsLayout];
     [self layoutIfNeeded];
 }

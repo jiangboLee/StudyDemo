@@ -7,11 +7,9 @@
 //
 
 #import "LEEUserIconViewController.h"
-#import "UIView+LEEView.h"
 #import "LEEScrollView.h"
 
-#define SCREEN_W ([UIScreen mainScreen].bounds.size.width)
-#define SCREEN_H ([UIScreen mainScreen].bounds.size.height)
+
 
 @interface LEEUserIconViewController ()<UIScrollViewDelegate>
 @property(nonatomic, strong) UIImageView *userIcon;
@@ -24,12 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if (@available(iOS 11.0, *)) {
-        self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    } else {
-        // Fallback on earlier versions
-    }
-    
+
     self.scrollView = [[LEEScrollView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
     self.scrollView.img = self.icon;
     [self.view addSubview:self.scrollView];
