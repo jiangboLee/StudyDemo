@@ -81,10 +81,7 @@
 				3FBD4532200868BE0075AF42 /* LEEUserIconViewController.h */,
 				3FBD4533200868BE0075AF42 /* LEEUserIconViewController.m */,
 				B7296E532008F6B100107DC9 /* Default.h */,
-				3FBD45392008AB100075AF42 /* LEEScrollView.h */,
-				3FBD453A2008AB100075AF42 /* LEEScrollView.m */,
-				3FBD453C2008B40F0075AF42 /* LEETapImageView.h */,
-				3FBD453D2008B40F0075AF42 /* LEETapImageView.m */,
+				B7296E572009088000107DC9 /* ShowPhotos */,
 				3FBD4535200887F20075AF42 /* Extension */,
 				3FBD451F200860330075AF42 /* Main.storyboard */,
 				3FBD4522200860330075AF42 /* Assets.xcassets */,
@@ -104,6 +101,17 @@
 				3FBD4536200888090075AF42 /* UIView+LEEView.m */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		B7296E572009088000107DC9 /* ShowPhotos */ = {
+			isa = PBXGroup;
+			children = (
+				3FBD45392008AB100075AF42 /* LEEScrollView.h */,
+				3FBD453A2008AB100075AF42 /* LEEScrollView.m */,
+				3FBD453C2008B40F0075AF42 /* LEETapImageView.h */,
+				3FBD453D2008B40F0075AF42 /* LEETapImageView.m */,
+			);
+			path = ShowPhotos;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
