@@ -30,26 +30,14 @@
     UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapAction:)];
     doubleTap.numberOfTapsRequired = 2;
     [self.view addGestureRecognizer:doubleTap];
-//
-//    UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(pinchScale:)];
-//    [self.scrollView addGestureRecognizer:pinch];
     
 }
-////缩放
-//- (void)pinchScale:(UIPinchGestureRecognizer *)pinchGestureRecognizer {
-//
-//}
-//
 //双击
 - (void)doubleTapAction:(UITapGestureRecognizer *)tapGestureRecognizer {
     
     CGPoint point = [tapGestureRecognizer locationInView:self.view];
     [self.scrollView handleDoubleTap:point];
-    
-    
-    
-    
-    
+   
 /** 2018-01-12 17:27:38
     [UIView animateWithDuration:0.8 animations:^{
 
@@ -68,6 +56,10 @@
         }
     }];
 */
+}
+
+- (IBAction)showAlertViewAction:(id)sender {
+    
 }
 
 

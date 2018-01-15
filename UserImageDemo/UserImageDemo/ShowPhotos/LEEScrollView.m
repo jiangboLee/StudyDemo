@@ -119,6 +119,7 @@ static CGFloat scrollViewMaxZoomScale = 3.0;
         CGFloat newZoomScale = [UIScreen mainScreen].bounds.size.height / [UIScreen mainScreen].bounds.size.width;
         CGFloat xsize = self.Lee_Width / newZoomScale;
         CGFloat ysize = self.Lee_Height / newZoomScale;
+        // 将内容视图缩放到指定的Rect中
         [self zoomToRect:CGRectMake(touchPoint.x - xsize/2, touchPoint.y - ysize/2, xsize, ysize) animated:YES];
     }
 }
@@ -141,9 +142,6 @@ static CGFloat scrollViewMaxZoomScale = 3.0;
     [self layoutIfNeeded];
     
 }
-
-
-
 
 @end
 

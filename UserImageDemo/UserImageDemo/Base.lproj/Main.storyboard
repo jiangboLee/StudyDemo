@@ -102,7 +102,11 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="我的头像" id="VLR-pc-HCr">
-                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="dh8-kg-02u"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="dh8-kg-02u">
+                            <connections>
+                                <action selector="showAlertViewAction:" destination="5xR-ct-PWj" id="xTu-k7-uBo"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ada-Zp-HQ3" userLabel="First Responder" sceneMemberID="firstResponder"/>
