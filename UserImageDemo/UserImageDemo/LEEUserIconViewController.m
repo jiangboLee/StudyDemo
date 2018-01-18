@@ -8,7 +8,7 @@
 
 #import "LEEUserIconViewController.h"
 #import "LEEScrollView.h"
-
+#import <Photos/Photos.h>
 
 
 @interface LEEUserIconViewController ()<UIScrollViewDelegate>
@@ -60,6 +60,25 @@
 
 - (IBAction)showAlertViewAction:(id)sender {
     
+    [LEEAlertViewController showWithTitle:nil message:nil alertType:UIAlertControllerStyleActionSheet actionTitles:@[@"从相册选取", @"拍照", @"保存图片", @"取消"] handles:@[^(UIAlertAction * _Nullable action) {
+        
+    }, ^(UIAlertAction * _Nullable action) {
+        
+    }, ^(UIAlertAction * _Nullable action) {
+        
+        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+            
+            [PHAssetChangeRequest creationRequestForAssetFromImage:self.icon];
+        } completionHandler:^(BOOL success, NSError * _Nullable error) {
+            if (success) {
+                NSLog(@"保存成功");
+            } else {
+                NSLog(@"%@",error);
+            }
+        }];
+    }, ^(UIAlertAction * _Nullable action) {
+        
+    }]];
 }
 
 
