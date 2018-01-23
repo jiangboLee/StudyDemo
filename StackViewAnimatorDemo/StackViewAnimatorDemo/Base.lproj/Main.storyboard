@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="StackViewAnimatorDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="bMR-CJ-227">
+                                <rect key="frame" x="165.5" y="196.5" width="44" height="274"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kT6-Rt-Cq3">
+                                        <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="IGc-Wo-bcX"/>
+                                            <constraint firstAttribute="width" constant="44" id="fg8-tN-5od"/>
+                                        </constraints>
+                                        <state key="normal" image="60"/>
+                                        <connections>
+                                            <action selector="btnClickAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="h5N-Q1-T9O"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m8o-1m-ksj">
+                                        <rect key="frame" x="0.0" y="46" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="44" id="3LC-e4-eZA"/>
+                                            <constraint firstAttribute="height" constant="44" id="5gf-mI-px9"/>
+                                        </constraints>
+                                        <state key="normal" backgroundImage="1"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0wm-9Y-jXl">
+                                        <rect key="frame" x="0.0" y="92" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="44" id="Se8-gD-m4Q"/>
+                                            <constraint firstAttribute="height" constant="44" id="sVN-GC-FJC"/>
+                                        </constraints>
+                                        <state key="normal" backgroundImage="2"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TpJ-BS-K6t">
+                                        <rect key="frame" x="0.0" y="138" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="44" id="sld-K7-Vqr"/>
+                                            <constraint firstAttribute="height" constant="44" id="tki-A3-KrX"/>
+                                        </constraints>
+                                        <state key="normal" backgroundImage="3"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MAZ-9n-aiF">
+                                        <rect key="frame" x="0.0" y="184" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="44" id="8VQ-xx-zss"/>
+                                            <constraint firstAttribute="height" constant="44" id="PzL-e8-MEz"/>
+                                        </constraints>
+                                        <state key="normal" backgroundImage="4"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uk7-fO-Icj">
+                                        <rect key="frame" x="0.0" y="230" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="6UE-xW-N8r"/>
+                                            <constraint firstAttribute="width" constant="44" id="FrA-bU-Mc2"/>
+                                        </constraints>
+                                        <state key="normal" backgroundImage="5"/>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="aaG-7A-cUq"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="bMR-CJ-227" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="H4q-DW-lGY"/>
+                            <constraint firstItem="bMR-CJ-227" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="176.5" id="l2K-Ef-R5U"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outletCollection property="buttons" destination="MAZ-9n-aiF" collectionClass="NSMutableArray" id="wfw-fM-1Vt"/>
+                        <outletCollection property="buttons" destination="m8o-1m-ksj" collectionClass="NSMutableArray" id="3vQ-bc-wFv"/>
+                        <outletCollection property="buttons" destination="0wm-9Y-jXl" collectionClass="NSMutableArray" id="IkT-Vf-mQh"/>
+                        <outletCollection property="buttons" destination="TpJ-BS-K6t" collectionClass="NSMutableArray" id="gYd-ev-ovg"/>
+                        <outletCollection property="buttons" destination="Uk7-fO-Icj" collectionClass="NSMutableArray" id="sXy-zo-U7f"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="1" width="12" height="12"/>
+        <image name="2" width="12" height="12"/>
+        <image name="3" width="12" height="12"/>
+        <image name="4" width="12" height="12"/>
+        <image name="5" width="12" height="12"/>
+        <image name="60" width="60" height="60"/>
+    </resources>
+</document>
