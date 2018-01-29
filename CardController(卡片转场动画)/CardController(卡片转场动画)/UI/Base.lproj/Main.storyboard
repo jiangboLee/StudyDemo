@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Fax-eV-lBJ">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="AvenirNext.ttc">
+            <string>AvenirNext-Bold</string>
+            <string>AvenirNext-Italic</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Page View Controller-->
+        <scene sceneID="U68-Hd-h1J">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Fax-eV-lBJ" customClass="PageViewController" customModule="CardController_卡片转场动画_" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p77-dW-hLR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="90" y="123"/>
+        </scene>
+        <!--Card View Controller-->
+        <scene sceneID="fy2-Kd-c48">
+            <objects>
+                <viewController storyboardIdentifier="CardViewController" id="aoA-14-xbn" customClass="CardViewController" customModule="CardController_卡片转场动画_" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3Wi-HZ-tN6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1jz-mW-pHm">
+                                <rect key="frame" x="62" y="167" width="250" height="333.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nnf-wL-1Wi">
+                                        <rect key="frame" x="102.5" y="155" width="45" height="25"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Italic" family="Avenir Next" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.058823529411764705" green="0.4392156862745098" blue="0.19215686274509802" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="1jz-mW-pHm" secondAttribute="height" multiplier="3:4" id="6mY-of-KPf"/>
+                                    <constraint firstItem="Nnf-wL-1Wi" firstAttribute="centerY" secondItem="1jz-mW-pHm" secondAttribute="centerY" id="PEZ-td-kqJ"/>
+                                    <constraint firstItem="Nnf-wL-1Wi" firstAttribute="centerX" secondItem="1jz-mW-pHm" secondAttribute="centerX" id="fRf-ez-Tjt"/>
+                                    <constraint firstItem="Nnf-wL-1Wi" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1jz-mW-pHm" secondAttribute="leading" constant="20" id="iNk-zH-38m"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Nnf-wL-1Wi" secondAttribute="trailing" constant="20" id="oof-qg-5XJ"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Kcy-DE-kqE" appends="YES" id="sxS-ck-xMX"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="1jz-mW-pHm" firstAttribute="centerX" secondItem="3Wi-HZ-tN6" secondAttribute="centerX" id="3oj-O9-ROv"/>
+                            <constraint firstItem="1jz-mW-pHm" firstAttribute="centerY" secondItem="3Wi-HZ-tN6" secondAttribute="centerY" id="XLr-na-wYM"/>
+                            <constraint firstItem="1jz-mW-pHm" firstAttribute="height" secondItem="3Wi-HZ-tN6" secondAttribute="height" multiplier="1/2" id="ecJ-0B-ghv"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Hlj-0x-tPc"/>
+                    </view>
+                    <connections>
+                        <outlet property="cardView" destination="1jz-mW-pHm" id="026-af-fNg"/>
+                        <outlet property="titleLable" destination="Nnf-wL-1Wi" id="QWn-gF-qOw"/>
+                        <segue destination="uii-tk-CgO" kind="presentation" identifier="reveal" id="abg-wq-r8r"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rv5-yG-2Lp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Kcy-DE-kqE">
+                    <connections>
+                        <action selector="handleTapAction:" destination="aoA-14-xbn" id="zYn-1o-AfP"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="929" y="117"/>
+        </scene>
+        <!--Reveal View Controller-->
+        <scene sceneID="PvJ-Lh-de9">
+            <objects>
+                <viewController id="uii-tk-CgO" customClass="RevealViewController" customModule="CardController_卡片转场动画_" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MIx-HY-JAj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Au4-Vf-k5D">
+                                <rect key="frame" x="0.0" y="83.5" width="375" height="500"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Au4-Vf-k5D" secondAttribute="height" multiplier="3:4" id="5vN-w4-7bZ"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aab-zW-6fG">
+                                <rect key="frame" x="165.5" y="50.5" width="45" height="25"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Italic" family="Avenir Next" pointSize="18"/>
+                                <color key="textColor" red="0.058823529409999999" green="0.43921568630000002" blue="0.19215686269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8I8-jZ-W7s">
+                                <rect key="frame" x="147.5" y="634" width="80" height="33"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="15"/>
+                                <state key="normal" title="Start Over!">
+                                    <color key="titleColor" red="0.058823529409999999" green="0.43921568630000002" blue="0.19215686269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismissPressAction:" destination="uii-tk-CgO" eventType="touchUpInside" id="iBX-EV-zDT"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Au4-Vf-k5D" firstAttribute="centerY" secondItem="MIx-HY-JAj" secondAttribute="centerY" id="HFH-zY-wee"/>
+                            <constraint firstItem="8I8-jZ-W7s" firstAttribute="centerX" secondItem="MIx-HY-JAj" secondAttribute="centerX" id="Qys-Gy-Xls"/>
+                            <constraint firstItem="egn-4C-gt7" firstAttribute="bottom" secondItem="8I8-jZ-W7s" secondAttribute="bottom" id="UTf-Vd-XzU"/>
+                            <constraint firstItem="aab-zW-6fG" firstAttribute="centerX" secondItem="MIx-HY-JAj" secondAttribute="centerX" id="eEI-mP-m7F"/>
+                            <constraint firstItem="Au4-Vf-k5D" firstAttribute="height" secondItem="MIx-HY-JAj" secondAttribute="height" multiplier="3/4" id="es3-yP-avM"/>
+                            <constraint firstItem="Au4-Vf-k5D" firstAttribute="centerX" secondItem="MIx-HY-JAj" secondAttribute="centerX" id="pKp-jV-2Ly"/>
+                            <constraint firstItem="Au4-Vf-k5D" firstAttribute="top" secondItem="aab-zW-6fG" secondAttribute="bottom" constant="8" id="tPN-0S-e6h"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="egn-4C-gt7"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="Au4-Vf-k5D" id="3Xx-pQ-tcu"/>
+                        <outlet property="titleLable" destination="aab-zW-6fG" id="lou-wv-0vM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QrE-Zy-Xwp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1676" y="116"/>
+        </scene>
+    </scenes>
+</document>
