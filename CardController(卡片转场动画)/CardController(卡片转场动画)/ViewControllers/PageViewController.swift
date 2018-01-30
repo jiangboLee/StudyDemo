@@ -6,6 +6,8 @@
 //  Copyright © 2018年 ljb48229. All rights reserved.
 //
 
+//http://blog.csdn.net/kmyhy/article/details/79180114
+
 import UIKit
 
 class PageViewController: UIPageViewController {
