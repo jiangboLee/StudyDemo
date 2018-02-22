@@ -33,8 +33,6 @@ class CardViewController: UIViewController {
             //注意，是对被呈现的（presented） view controller 索要 transitioning delegate，而不是对触发呈现动作的（presenting） view controller 进行索要。
             destinationViewController.transitioningDelegate = self
         }
-        
-        
     }
 
     @IBAction func handleTapAction(_ sender: Any) {

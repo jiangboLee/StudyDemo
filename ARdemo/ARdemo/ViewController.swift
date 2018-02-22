@@ -32,8 +32,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         let scene = SCNScene()
         let boxGeometry = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
-        let boxNode = SCNNode(geometry: boxGeometry)
-        boxNode.position = SCNVector3Make(0, 0, -0.5)
+        let text3D = SCNText(string: "   静夜思 \n床前明月光，\n疑是地上霜。\n举头望明月，\n低头思故乡。", extrusionDepth: 1)
+        text3D.font = UIFont.systemFont(ofSize: 20)
+        //是否需要换行
+//        text3D.isWrapped = true
+        text3D.chamferRadius = 0.5;
+        let boxNode = SCNNode(geometry: text3D)
+        boxNode.position = SCNVector3Make(-40, -50, -300)
         scene.rootNode.addChildNode(boxNode)
         sceneView.scene = scene
         
@@ -58,11 +63,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Pause the view's session
         sceneView.session.pause()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
     }
 
     // MARK: - ARSCNViewDelegate
